@@ -120,6 +120,20 @@ class Browser(IBrowser):
         if page == None: raise RuntimeError('Can\'t find page %s in browser %s' % (url, self._browser_name))
         return page
 
+    def find_by_title(self, title, page_cls=None, timeout=10):
+        '''在当前打开的页面中查找指定标题,返回WebPage实例，如果未找到，返回None
+
+        :param title: 要查找的页面标题
+        :type title:  string
+        :param page_cls: 要返回的具体WebPage类,为None表示返回WebPage实例
+        :type page_cls: Class
+        :param timeout: 查找超时时间，单位：秒
+        :type timeout: int/float
+        '''
+        page = self._browser.find_by_title(title, page_cls, timeout)
+        if page == None: raise RuntimeError('Can\'t find page %s in browser %s' % (title, self._browser_name))
+        return page
+
     def close(self):
         '''
         关闭浏览器，并清理数据
