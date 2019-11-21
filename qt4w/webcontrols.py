@@ -1041,6 +1041,36 @@ class WebElement(ControlContainer, IWebElement):
         self._webdriver.drag_element(self._locators, mid_x - x / 2, mid_y - y / 2, mid_x + x / 2, mid_y + y / 2)
         time.sleep(1)  # 等待滚动完成
 
+    def drag2(self, x, y):
+        '''拖放元素到指定位置
+
+        :param x: 拖放终点距离起点的横向偏移。
+        :type x:  int或float
+        :param y: 放终点距离起点的纵向偏移。
+        :type y:  int或float
+        '''
+        screen_size = self._webdriver.get_screen_size()
+        if abs(x) > screen_size[0]: x = screen_size[0] * abs(x) / x
+        if abs(y) > screen_size[1]: y = screen_size[1] * abs(y) / y
+
+        rect = self.rect
+        # 计算与屏幕的交集
+        if rect[0] < 0:
+            rect[2] += rect[0]
+            rect[0] = 0
+        if rect[1] < 0:
+            rect[3] += rect[1]
+            rect[1] = 0
+        if rect[0] + rect[2] > screen_size[0]:
+            rect[2] = screen_size[0] - rect[0]
+        if rect[1] + rect[3] > screen_size[1]:
+            rect[3] = screen_size[1] - rect[1]
+        mid_x = rect[0] + rect[2] / 2
+        mid_y = rect[1] + rect[3] / 2
+
+        self._webview.drag(mid_x, mid_y, x, y)
+        time.sleep(1)  # 等待滚动完成
+
     def send_keys(self, keys):
         '''发送按键
 
