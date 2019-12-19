@@ -138,4 +138,4 @@ def set_logger(logger):
     '''set qt4w default logger
     '''
     import qt4w.util
-    util.logger = logger
+    qt4w.util.logger = logger
