@@ -803,7 +803,7 @@ class WebElement(ControlContainer, IWebElement):
         '''高亮
         '''
         self._webdriver.highlight(self._locators)
-        time.sleep(0.5) # wait for highlight
+        time.sleep(0.2) # wait for highlight
 
     def scroll(self, x, y):
         '''滚动元素
